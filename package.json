@@ -6,7 +6,7 @@
   "scripts": {
     "watch:css": "postcss css/style.pcss -o _site/css/style.css --watch",
     "watch:eleventy": "eleventy --serve",
-    "build:css": "postcss css/style.css -o _site/css/style.css",
+    "build:css": "postcss css/style.pcss -o _site/css/style.css",
     "build:eleventy": "eleventy",
     "start": "npm-run-all --parallel watch:*",
     "build": "npm-run-all --parallel build:*"
