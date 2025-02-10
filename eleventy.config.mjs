@@ -11,6 +11,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addGlobalData('layout', '../../../layout/default.njk');
 
   // 画像のコピー
+  eleventyConfig.addPassthroughCopy(`./images`);
   eleventyConfig.addPassthroughCopy(`${rootDir}/images`);
 
   // [[WikiLink]]の変換
