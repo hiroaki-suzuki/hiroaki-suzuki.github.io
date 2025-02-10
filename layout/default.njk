@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css">
+  <title>{{ title }} | hirozki notebook</title>
+</head>
+<body>
+  <header class="header">
+    <div class="header__title-container">
+      <h1 class="header__site-title">
+        <a href="/">hirozki notebook</a>
+      </h1>
+      <div class="header__profile-icon">
+        <a href="/"><img src="/images/profile.jpg" alt="ユーザーアイコン"></a>
+      </div>
+    </div>
+    <aside class="header__nav-aside">
+      <input type="checkbox" class="header__hamburger-toggle" id="hamburger-toggle"
+             aria-label="Toggle navigation">
+      <div class="header__hamburger-container">
+        <label class="header__hamburger-icon" for="hamburger-toggle">
+          <span></span>
+        </label>
+      </div>
+      <nav class="header__nav">
+        <ul class="header__nav-list">
+          {% for tag in collections.tagList %}
+            <li><a href="/tags/{{ tag }}">{{ tag }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </aside>
+  </header>
+  <main>
+    <aside class="sidebar">
+      <nav>
+        <ul class="tag-list">
+          {% for tag in collections.tagList %}
+            <li><a href="/tags/{{ tag }}">{{ tag }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </aside>
+    <div class="content">
+      {{ content | safe }}
+    </div>
+  </main>
+</body>
+</html>

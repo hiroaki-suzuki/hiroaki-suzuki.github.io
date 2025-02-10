@@ -1,0 +1,34 @@
+{
+  "name": "hirozki-notebook",
+  "description": "Hiroaki Suzuki's notebook",
+  "author": "Hiroaki Suzuki",
+  "module": "module",
+  "scripts": {
+    "watch:css": "postcss css/style.pcss -o _site/css/style.css --watch",
+    "watch:eleventy": "eleventy --serve",
+    "build:css": "postcss css/style.css -o _site/css/style.css",
+    "build:eleventy": "eleventy",
+    "start": "npm-run-all --parallel watch:*",
+    "build": "npm-run-all --parallel build:*"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.5.1",
+    "postcss-cli": "^11.0.0",
+    "postcss-custom-media": "^11.0.5",
+    "postcss-import": "^16.1.0",
+    "postcss-nested": "^7.0.2",
+    "postcss-sorting": "^9.1.0",
+    "prettier": "3.4.2"
+  }
+}
