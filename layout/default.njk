@@ -17,45 +17,50 @@
   <title>{{ title }} | hirozki notebook</title>
 </head>
 <body>
-  <header class="header">
-    <div class="header__title-container">
-      <h1 class="header__site-title">
-        <a href="/">hirozki notebook</a>
-      </h1>
-      <div class="header__profile-icon">
-        <a href="/"><img src="/images/profile.jpg" alt="ユーザーアイコン"></a>
+  <div class="wrapper">
+    <header class="header">
+      <div class="header__title-container">
+        <h1 class="header__site-title">
+          <a href="/">hirozki notebook</a>
+        </h1>
+        <div class="header__profile-icon">
+          <a href="/"><img src="/images/profile.jpg" alt="ユーザーアイコン"></a>
+        </div>
       </div>
-    </div>
-    <aside class="header__nav-aside">
-      <input type="checkbox" class="header__hamburger-toggle" id="hamburger-toggle"
-             aria-label="Toggle navigation">
-      <div class="header__hamburger-container">
-        <label class="header__hamburger-icon" for="hamburger-toggle">
-          <span></span>
-        </label>
+      <aside class="header__nav-aside">
+        <input type="checkbox" class="header__hamburger-toggle" id="hamburger-toggle"
+               aria-label="Toggle navigation">
+        <div class="header__hamburger-container">
+          <label class="header__hamburger-icon" for="hamburger-toggle">
+            <span></span>
+          </label>
+        </div>
+        <nav class="header__nav">
+          <ul class="header__nav-list">
+            {% for tag in collections.tagList %}
+              <li><a href="/tags/{{ tag }}">{{ tag }}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </aside>
+    </header>
+    <main>
+      <aside class="sidebar">
+        <nav>
+          <ul class="tag-list">
+            {% for tag in collections.tagList %}
+              <li><a href="/tags/{{ tag }}">{{ tag }}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </aside>
+      <div class="content">
+        {{ content | safe }}
       </div>
-      <nav class="header__nav">
-        <ul class="header__nav-list">
-          {% for tag in collections.tagList %}
-            <li><a href="/tags/{{ tag }}">{{ tag }}</a></li>
-          {% endfor %}
-        </ul>
-      </nav>
-    </aside>
-  </header>
-  <main>
-    <aside class="sidebar">
-      <nav>
-        <ul class="tag-list">
-          {% for tag in collections.tagList %}
-            <li><a href="/tags/{{ tag }}">{{ tag }}</a></li>
-          {% endfor %}
-        </ul>
-      </nav>
-    </aside>
-    <div class="content">
-      {{ content | safe }}
-    </div>
-  </main>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2025 Hiroaki Suzuki</p>
+    </footer>
+  </div>
 </body>
 </html>
