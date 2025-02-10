@@ -13,8 +13,8 @@ date: Last Modified
 ## Links
 - GitHub: [https://github.com/hiroaki-suzuki](https://github.com/hiroaki-suzuki)
 - Qiita: [https://qiita.com/hiroaki-suzuki](https://qiita.com/hiroaki-suzuki)
-- Note: [https://note.com/hirozki](https://github.com/hiroaki-suzuki)
-- 積読: [https://tsundoku.site/stack/FxTX1wh67AcbWXxvberQPPrMVQv2](https://github.com/hiroaki-suzuki)
+- Note: [https://note.com/hirozki](https://note.com/hirozki)
+- 積読: [https://tsundoku.site/stack/FxTX1wh67AcbWXxvberQPPrMVQv2](https://tsundoku.site/stack/FxTX1wh67AcbWXxvberQPPrMVQv2)
 
 ## 使用言語
 - Java
