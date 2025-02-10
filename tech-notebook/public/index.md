@@ -56,7 +56,7 @@ date: Last Modified
 ## 個人開発
 - スタジオフェイスのホームページ
     - [http://st-face.com/main.html](http://st-face.com/main.html)
-- XMLファイルのフォーマッター]
+- XMLファイルのフォーマッター
     - [https://github.com/hiroaki-suzuki/xml-file-format-tool/releases](https://github.com/hiroaki-suzuki/xml-file-format-tool/releases)
     - ただただ、指定されたディレクトリ配下のXMLファイルをフォーマットするだけです。どのようにフォーマットするかも指定できません。差分確認しているときに面倒なので作りました。
 - Git管理下でリリース用の資材を作成するツール]
