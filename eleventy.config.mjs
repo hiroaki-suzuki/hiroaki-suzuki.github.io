@@ -24,6 +24,10 @@ export default async function (eleventyConfig) {
   eleventyConfig.addTransform('transform-external-link', async function (content) {
     return content.replace(/<a href="http/g, '<a target="_blank" href="http');
   });
+  // 画像のパスを修正
+  eleventyConfig.addTransform('transform-image-path', async function (content) {
+    return content.replace(/src="images/g, 'src="/images');
+  });
 
   // HTMLの整形
   eleventyConfig.addTransform('prettier', async (content, outputPath) => {
