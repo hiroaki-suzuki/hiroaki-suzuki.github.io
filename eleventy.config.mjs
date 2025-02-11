@@ -14,6 +14,9 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy(`./images`);
   eleventyConfig.addPassthroughCopy(`${rootDir}/images`);
 
+  // ライブラリのコピー
+  eleventyConfig.addPassthroughCopy(`./libs`);
+
   // [[WikiLink]]の変換
   eleventyConfig.addTransform('transform-wiki-link', async function (content) {
     return content.replace(/\[\[(.*?)\]\]/g, '<a href="/$1/">$1</a>');
