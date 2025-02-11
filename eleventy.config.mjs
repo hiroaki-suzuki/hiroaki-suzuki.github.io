@@ -20,6 +20,10 @@ export default async function (eleventyConfig) {
   eleventyConfig.addTransform('transform-wiki-link', async function (content) {
     return content.replace(/\[\[(.*?)\]\]/g, '<a href="/$1/">$1</a>');
   });
+  // 外部リンクを別タブで開くように変換
+  eleventyConfig.addTransform('transform-external-link', async function (content) {
+    return content.replace(/<a href="http/g, '<a target="_blank" href="http');
+  });
 
   // HTMLの整形
   eleventyConfig.addTransform('prettier', async (content, outputPath) => {
