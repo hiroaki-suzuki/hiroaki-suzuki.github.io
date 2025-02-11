@@ -1,12 +1,8 @@
 import prettier from 'prettier';
-import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 
 const rootDir = 'tech-notebook/public';
 
 export default async function (eleventyConfig) {
-  // プラグインの追加
-  eleventyConfig.addPlugin(syntaxHighlight);
-
   // デフォルトのレイアウト定義
   eleventyConfig.addGlobalData('layout', '../../../layout/default.njk');
 
@@ -16,6 +12,9 @@ export default async function (eleventyConfig) {
 
   // ライブラリのコピー
   eleventyConfig.addPassthroughCopy(`./libs`);
+
+  // JavaScriptのコピー
+  eleventyConfig.addPassthroughCopy(`./js`);
 
   // [[WikiLink]]の変換
   eleventyConfig.addTransform('transform-wiki-link', async function (content) {
