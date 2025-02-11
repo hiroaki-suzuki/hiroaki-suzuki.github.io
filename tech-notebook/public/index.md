@@ -15,6 +15,7 @@ date: Last Modified
 - Qiita: [https://qiita.com/hiroaki-suzuki](https://qiita.com/hiroaki-suzuki)
 - Note: [https://note.com/hirozki](https://note.com/hirozki)
 - 積読: [https://tsundoku.site/stack/FxTX1wh67AcbWXxvberQPPrMVQv2](https://tsundoku.site/stack/FxTX1wh67AcbWXxvberQPPrMVQv2)
+- 旧メモ環境: [https://scrapbox.io/hiroaki-suzuki-scrapbox/](https://scrapbox.io/hiroaki-suzuki-scrapbox/)
 
 ## 使用言語
 - Java
@@ -59,11 +60,11 @@ date: Last Modified
 - XMLファイルのフォーマッター
     - [https://github.com/hiroaki-suzuki/xml-file-format-tool/releases](https://github.com/hiroaki-suzuki/xml-file-format-tool/releases)
     - ただただ、指定されたディレクトリ配下のXMLファイルをフォーマットするだけです。どのようにフォーマットするかも指定できません。差分確認しているときに面倒なので作りました。
-- Git管理下でリリース用の資材を作成するツール]
+- Git管理下でリリース用の資材を作成するツール
     - [https://github.com/hiroaki-suzuki/git-release-materials/releases](https://github.com/hiroaki-suzuki/git-release-materials/releases)
     - ２つのコミット間で変更されたリスト、ファイルなどを作成します。
     - 差分確認用に、対象のファイルのコミット１、コミット２のファイルも抽出してます。
 - 田舎の民宿のHP
     - [https://tenjin.kouzushima-kikunoya.tokyo/](https://tenjin.kouzushima-kikunoya.tokyo/)
 
-載せれませんが1年に2つほど、個人でWordPress案件を受けて、5ページ程度のHPを作って納めたりしてます
+載せれませんが1年に2つほど、個人でWordPress案件を受けて、5ページ程度のHPを作って納めたりしてます。
