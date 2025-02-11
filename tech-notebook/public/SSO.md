@@ -5,7 +5,8 @@ tags:
   - SAML
   - OIDC
 title: SSO
-date: Last Modified
+created: 2025-02-09 17:31:20
+updated: 2025-02-11 22:19:24
 ---
 ## 種類
 - フェデレーション方式
