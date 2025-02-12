@@ -282,3 +282,5 @@ Temporary Items
 tech-notebook/*
 !tech-notebook/public
 _site
+tech-notebook/**/*.drawio
+tech-notebook/**/*.drawio.bkp

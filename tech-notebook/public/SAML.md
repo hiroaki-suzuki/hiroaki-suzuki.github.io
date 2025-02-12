@@ -5,7 +5,7 @@ tags:
   - SSO
 title: SAML
 created: 2025-02-10 22:56:44
-updated: 2025-02-11 22:19:19
+updated: 2025-02-12 22:32:29
 ---
 ## リンク
 - [https://wiki.oasis-open.org/security/FrontPage](https://wiki.oasis-open.org/security/FrontPage)
