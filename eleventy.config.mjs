@@ -28,6 +28,11 @@ export default async function (eleventyConfig) {
   eleventyConfig.addTransform('transform-image-path', async function (content) {
     return content.replace(/src="images/g, 'src="/images');
   });
+  // テーブルのスクロールのための親要素を追加
+  eleventyConfig.addTransform('transform-table-scroll', async function (content) {
+    const replacedContent = content.replace(/<table>/g, '<div class="table-scroll"><table>');
+    return replacedContent.replace(/<\/table>/g, '</table></div>');
+  });
 
   // HTMLの整形
   eleventyConfig.addTransform('prettier', async (content, outputPath) => {
