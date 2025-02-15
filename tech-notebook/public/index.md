@@ -1,7 +1,7 @@
 ---
 title: ホーム
 created: 2025-02-11 01:15:16
-updated: 2025-02-15 14:30:35
+updated: 2025-02-15 15:00:39
 ---
 ## Hiroaki Suzuki
 
@@ -70,5 +70,5 @@ updated: 2025-02-15 14:30:35
 
 載せれませんが1年に2つほど、個人でWordPress案件を受けて、5ページ程度のHPを作って納めたりしてます。
 
-## 本サイトのアーキテクチャ
-![サイトのアーキテクチャ](images/my-memo-page-architecture.svg)
+## 本サイトを実現している構成図
+![サイトの構成図](images/my-memo-page-architecture.svg)
