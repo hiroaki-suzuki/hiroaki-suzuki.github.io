@@ -1,7 +1,7 @@
 ---
 title: ホーム
 created: 2025-02-11 01:15:16
-updated: 2025-02-16 15:35:19
+updated: 2025-02-17 18:56:06
 ---
 ## Hiroaki Suzuki
 
@@ -73,5 +73,5 @@ updated: 2025-02-16 15:35:19
 ## 本サイトを実現している構成図
 ![サイトの構成図](images/my-memo-page-architecture.svg)
 
-検討から実現までの記事を書きました。
+検討から実現までの記事を書きました。  
 [技術メモをCosenseからObsidianとGitHubページに移行した話](https://note.com/hirozki/n/n4785e30ab375)
