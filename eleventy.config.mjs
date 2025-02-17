@@ -1,8 +1,28 @@
 import prettier from 'prettier';
+import { feedPlugin } from '@11ty/eleventy-plugin-rss';
 
 const rootDir = 'tech-notebook/public';
 
 export default async function (eleventyConfig) {
+  // RSSフィードの生成
+  eleventyConfig.addPlugin(feedPlugin, {
+    type: 'atom',
+    outputPath: '/feed.xml',
+    collection: {
+      name: 'all',
+      limit: 20,
+    },
+    metadata: {
+      language: 'ja',
+      title: 'Hiroaki SuzukiのWeb技術ノート',
+      subtitle: 'Hiroaki SuzukiのWeb技術ノート',
+      base: 'https://hiroaki-suzuki.github.io',
+      author: {
+        name: 'Hiroaki SUzuki',
+      },
+    },
+  });
+
   // デフォルトのレイアウト定義
   eleventyConfig.addGlobalData('layout', '../../../layout/default.njk');
 

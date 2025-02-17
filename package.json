@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-rss": "^2.0.3",
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.6",
     "eslint": "^8.57.1",
