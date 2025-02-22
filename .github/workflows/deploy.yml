@@ -33,9 +33,9 @@ jobs:
         id: npm-cache
         with:
           path: ~/.npm
-          key: ${{ inputs.cache-key-prefix }}-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: app-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ inputs.cache-key-prefix }}-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+            app-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Build site
