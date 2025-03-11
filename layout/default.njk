@@ -51,7 +51,7 @@
         <nav class="header__nav">
           <ul class="header__nav-list">
             {% for tag in collections.tagList %}
-              <li><a href="/tags/{{ tag }}">{{ tag }}</a></li>
+              <li><a href="/tags/{{ tag.link }}">{{ tag.label }} ({{ tag.count }})</a></li>
             {% endfor %}
           </ul>
         </nav>
@@ -62,7 +62,7 @@
         <nav>
           <ul class="tag-list">
             {% for tag in collections.tagList %}
-              <li><a href="/tags/{{ tag }}">{{ tag }}</a></li>
+              <li><a href="/tags/{{ tag.link }}">{{ tag.label }} ({{ tag.count }})</a></li>
             {% endfor %}
           </ul>
         </nav>

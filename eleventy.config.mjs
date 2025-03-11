@@ -69,14 +69,26 @@ export default async function (eleventyConfig) {
 
   // タグリストの生成
   eleventyConfig.addCollection('tagList', function (collectionApi) {
-    const tagList = new Set();
-    collectionApi.getAll().map((item) => {
+    const tagCounts = {};
+
+    // 各アイテムのタグを走査してカウント
+    collectionApi.getAll().forEach((item) => {
       if (item.data.tags) {
-        item.data.tags.map((tag) => tagList.add(tag));
+        item.data.tags.forEach((tag) => {
+          tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+        });
       }
     });
 
-    return tagList;
+    // キー（タグ名）でソート
+    const sortedTags = Object.keys(tagCounts).sort();
+
+    // ソート済みのタグ毎に { tag, count } のオブジェクトを作成して配列で返す
+    return sortedTags.map((tag) => ({
+      label: tag.replace('_', ' '),
+      link: tag,
+      count: tagCounts[tag],
+    }));
   });
 
   return {
