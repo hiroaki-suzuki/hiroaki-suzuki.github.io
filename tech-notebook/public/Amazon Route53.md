@@ -1,6 +1,6 @@
 ---
 title: Amazon Route53
-permalink: amazion-route53/
+permalink: amazon-route53/
 created: 2025-03-20T13:23:00
 updated: 2025-03-20T22:52:00
 tags:
