@@ -1,5 +1,6 @@
 ---
 title: GitHub Actions
+permalink: github-actions/
 created: 2025-03-11 22:30:48
 updated: 2025-03-11 22:50:38
 tags:

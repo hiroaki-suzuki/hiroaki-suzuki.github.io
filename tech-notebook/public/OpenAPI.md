@@ -1,5 +1,6 @@
 ---
 title: OpenAPI
+permalink: open-api/
 created: 2025-02-13T09:07
 updated: 2025-02-13T10:08
 tags:

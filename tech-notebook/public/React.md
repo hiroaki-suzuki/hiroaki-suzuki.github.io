@@ -1,7 +1,8 @@
 ---
-created: 2025-02-19 19:28:52
-updated: 2025-03-11 22:55:25
 title: React
+permalink: react/
+created: 2025-02-19 19:28:52
+updated: 2025-03-20T13:22
 tags:
   - JavaScript
   - フロントエンド

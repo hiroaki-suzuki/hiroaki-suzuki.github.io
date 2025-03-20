@@ -1,5 +1,6 @@
 ---
 title: AWS WAF
+permalink: aws-waf/
 created: 2025-03-19T20:59
 updated: 2025-03-19T21:00
 tags:

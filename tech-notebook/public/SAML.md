@@ -1,11 +1,12 @@
 ---
+title: SAML
+permalink: saml/
+created: 2025-02-10 22:56:44
+updated: 2025-03-20T13:22
 tags:
   - 認証認可
   - SAML
   - SSO
-title: SAML
-created: 2025-02-10 22:56:44
-updated: 2025-03-11 20:37:06
 ---
 ## リンク
 - [https://wiki.oasis-open.org/security/FrontPage](https://wiki.oasis-open.org/security/FrontPage)

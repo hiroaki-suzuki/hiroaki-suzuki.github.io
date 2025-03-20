@@ -1,7 +1,8 @@
 ---
 title: Docker
+permalink: docker/
 created: 2025-02-17 18:30:02
-updated: 2025-03-11 22:56:35
+updated: 2025-03-20T13:22
 tags:
   - Docker
   - コンテナ

@@ -1,5 +1,6 @@
 ---
 title: Amazon ECR
+permalink: amazon-ecr/
 created: 2025-02-21 10:33:30
 updated: 2025-02-21 16:51:22
 tags:

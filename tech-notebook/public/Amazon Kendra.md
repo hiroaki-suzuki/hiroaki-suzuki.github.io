@@ -1,7 +1,8 @@
 ---
 title: Amazon Kendra
+permalink: amazon-kendra/
 created: 2025-03-11 20:09:35
-updated: 2025-03-11 20:37:21
+updated: 2025-03-20T13:22
 tags:
   - AWS
   - 機械学習

@@ -1,12 +1,13 @@
 ---
+title: SSO
+permalink: sso/
+created: 2025-02-09 17:31:20
+updated: 2025-03-20T13:22
 tags:
   - 認証認可
   - SSO
   - SAML
   - OIDC
-title: SSO
-created: 2025-02-09 17:31:20
-updated: 2025-03-11 20:37:06
 ---
 ## 種類
 - フェデレーション方式
