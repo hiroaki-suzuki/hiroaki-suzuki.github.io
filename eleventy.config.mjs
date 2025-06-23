@@ -1,5 +1,6 @@
 import prettier from 'prettier';
 import { feedPlugin } from '@11ty/eleventy-plugin-rss';
+import { DateTime } from 'luxon';
 
 const rootDir = 'tech-notebook/public';
 
@@ -89,6 +90,34 @@ export default async function (eleventyConfig) {
       link: tag,
       count: tagCounts[tag],
     }));
+  });
+
+  // dateFormatフィルターをリファクタリング（タイムゾーン: Asia/Tokyo）
+  eleventyConfig.addNunjucksFilter('dateFormat', function (dateValue, format = 'yyyy-MM-dd HH:mm') {
+    if (!dateValue) return '';
+    let dt;
+    // 文字列の場合
+    if (typeof dateValue === 'string') {
+      // ISO8601または日付のみ
+      dt = DateTime.fromISO(dateValue, { zone: 'Asia/Tokyo' });
+      if (!dt.isValid) {
+        dt = DateTime.fromFormat(dateValue, 'yyyy-MM-dd', { zone: 'Asia/Tokyo' });
+      }
+      // Dateオブジェクトの場合
+    } else if (dateValue instanceof Date) {
+      dt = DateTime.fromJSDate(dateValue, { zone: 'Asia/Tokyo' });
+      // LuxonのDateTime型の場合
+    } else if (
+      dateValue &&
+      typeof dateValue === 'object' &&
+      typeof dateValue.toFormat === 'function'
+    ) {
+      dt = dateValue.setZone('Asia/Tokyo');
+      // その他（数値など）はDateに変換
+    } else {
+      dt = DateTime.fromJSDate(new Date(dateValue), { zone: 'Asia/Tokyo' });
+    }
+    return dt.isValid ? dt.toFormat(format) : String(dateValue);
   });
 
   return {

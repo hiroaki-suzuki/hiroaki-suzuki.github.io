@@ -69,6 +69,9 @@
       </aside>
       <div class="content line-numbers">
         {{ content | safe }}
+        {% if updated %}
+          <div class="updated-date">更新日: {{ updated | dateFormat() }}</div>
+        {% endif %}
       </div>
     </main>
     <footer class="footer">

@@ -31,5 +31,8 @@
     "postcss-nested": "^7.0.2",
     "postcss-sorting": "^9.1.0",
     "prettier": "3.4.2"
+  },
+  "dependencies": {
+    "luxon": "^3.6.1"
   }
 }
