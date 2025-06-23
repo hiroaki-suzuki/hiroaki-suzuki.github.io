@@ -92,30 +92,26 @@ export default async function (eleventyConfig) {
     }));
   });
 
-  // dateFormatフィルターをリファクタリング（タイムゾーン: Asia/Tokyo）
+  // dateFormatフィルターを修正（タイムゾーン指定なしに戻す）
   eleventyConfig.addNunjucksFilter('dateFormat', function (dateValue, format = 'yyyy-MM-dd HH:mm') {
     if (!dateValue) return '';
     let dt;
-    // 文字列の場合
     if (typeof dateValue === 'string') {
-      // ISO8601または日付のみ
-      dt = DateTime.fromISO(dateValue, { zone: 'Asia/Tokyo' });
+      dt = DateTime.fromISO(dateValue);
       if (!dt.isValid) {
-        dt = DateTime.fromFormat(dateValue, 'yyyy-MM-dd', { zone: 'Asia/Tokyo' });
+        dt = DateTime.fromFormat(dateValue, 'yyyy-MM-dd');
       }
-      // Dateオブジェクトの場合
     } else if (dateValue instanceof Date) {
-      dt = DateTime.fromJSDate(dateValue, { zone: 'Asia/Tokyo' });
-      // LuxonのDateTime型の場合
+      // UTC値をISO文字列に変換し、Asia/Tokyoタイムゾーンで解釈し、ローカル時刻を維持
+      dt = DateTime.fromISO(dateValue.toISOString(), { zone: 'Asia/Tokyo', setZone: true });
     } else if (
       dateValue &&
       typeof dateValue === 'object' &&
       typeof dateValue.toFormat === 'function'
     ) {
-      dt = dateValue.setZone('Asia/Tokyo');
-      // その他（数値など）はDateに変換
+      dt = dateValue;
     } else {
-      dt = DateTime.fromJSDate(new Date(dateValue), { zone: 'Asia/Tokyo' });
+      dt = DateTime.fromJSDate(new Date(dateValue));
     }
     return dt.isValid ? dt.toFormat(format) : String(dateValue);
   });

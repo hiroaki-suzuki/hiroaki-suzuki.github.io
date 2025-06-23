@@ -70,6 +70,7 @@
       <div class="content line-numbers">
         {{ content | safe }}
         {% if updated %}
+          <div class="created-date">作成日: {{ created | dateFormat() }}</div>
           <div class="updated-date">更新日: {{ updated | dateFormat() }}</div>
         {% endif %}
       </div>
