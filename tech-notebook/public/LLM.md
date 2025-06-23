@@ -2,7 +2,7 @@
 title: 大規模言語モデル LLM
 permalink: llm/
 created: 2025-06-21T11:38:00
-updated: 2025-06-21T11:39:00
+updated: 2025-06-23T09:39:00
 tags:
   - AI
   - LLM
