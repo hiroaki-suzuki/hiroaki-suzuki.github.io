@@ -46,14 +46,24 @@ This is Hiroaki Suzuki's personal notebook site built with Eleventy (11ty) stati
 4. RSS feed generation for latest 20 posts
 5. Tag system with automatic counting and listing
 
+### Eleventy Configuration Architecture
+
+The `eleventy.config.mjs` uses a modular function-based approach:
+- `CONFIG` object centralizes all configuration values
+- `setupRSSFeed()` - RSS plugin configuration
+- `setupPassthroughCopy()` - Static file copying (images, JS, libs)
+- `setupContentTransforms()` - Content processing (WikiLinks, external links, tables, HTML formatting)
+- `setupCollections()` - Tag collection generation with sorting
+- `setupFilters()` - Nunjucks filters (date formatting with timezone handling)
+
 ### Key Files
 
-- `eleventy.config.mjs` - Main Eleventy configuration with transforms and plugins
-- `layout/default.njk` - Base template with navigation, sidebar, responsive design and semantic article structure
+- `eleventy.config.mjs` - Modular Eleventy configuration with function-based organization (RSS, transforms, collections, filters)
+- `layout/default.njk` - Base template with semantic HTML structure, conditional page titles, and date positioning
 - `css/style.pcss` - Main PostCSS entry point with imports from modular `css/_*.pcss` files
 - `css/_variables.pcss` - CSS custom properties for colors, font sizes, and breakpoints
 - `css/_content.pcss` - Article content styles including heading colors (h1-h6) and link hover effects
-- `css/_sidebar.pcss` - Tag navigation styles with animated hover effects
+- `css/_sidebar.pcss` - Tag navigation styles with animated hover effects (underline animations)
 - `postcss.config.js` - PostCSS plugin configuration
 - `eslint.config.mjs` - ESLint configuration
 
@@ -96,3 +106,20 @@ Markdown files support `created`, `updated`, and `tags` frontmatter for metadata
 - Content headings use a professional color palette (blues, teals, browns)
 - Link hover effects provide visual feedback (color changes, animated underlines)
 - Consistent spacing and typography scaling across all components
+
+## Development Workflow
+
+### Making Configuration Changes
+
+When modifying `eleventy.config.mjs`:
+- Configuration values should be updated in the `CONFIG` object
+- New transforms should be added to `setupContentTransforms()`
+- Collection logic should be placed in `setupCollections()`
+- The modular structure keeps related functionality together
+
+### Styling Changes
+
+- Global styles and variables: `css/_variables.pcss`
+- Content-specific styles: `css/_content.pcss` 
+- Navigation styles: `css/_sidebar.pcss`
+- Changes are automatically compiled with `npm run build:css` or `npm start`
