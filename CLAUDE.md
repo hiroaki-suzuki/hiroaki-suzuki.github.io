@@ -49,8 +49,11 @@ This is Hiroaki Suzuki's personal notebook site built with Eleventy (11ty) stati
 ### Key Files
 
 - `eleventy.config.mjs` - Main Eleventy configuration with transforms and plugins
-- `layout/default.njk` - Base template with navigation, sidebar, and responsive design
-- `css/style.pcss` - Main PostCSS entry point with imports from `css/_*.pcss` files
+- `layout/default.njk` - Base template with navigation, sidebar, responsive design and semantic article structure
+- `css/style.pcss` - Main PostCSS entry point with imports from modular `css/_*.pcss` files
+- `css/_variables.pcss` - CSS custom properties for colors, font sizes, and breakpoints
+- `css/_content.pcss` - Article content styles including heading colors (h1-h6) and link hover effects
+- `css/_sidebar.pcss` - Tag navigation styles with animated hover effects
 - `postcss.config.js` - PostCSS plugin configuration
 - `eslint.config.mjs` - ESLint configuration
 
@@ -72,3 +75,24 @@ Markdown files support `created`, `updated`, and `tags` frontmatter for metadata
 - Prism.js syntax highlighting
 - Responsive table scrolling
 - Tag-based navigation with counts
+
+## Styling Architecture
+
+### CSS Organization
+
+- **Modular Structure**: CSS is split into semantic modules (`_base.pcss`, `_content.pcss`, `_sidebar.pcss`, etc.)
+- **Design System**: Centralized color scheme and typography defined in `_variables.pcss`
+- **Semantic HTML**: Uses `<article>` tags for content areas with proper heading hierarchy
+
+### Key Design Patterns
+
+- **Heading Colors**: h1-h6 have distinct colors applied only within article content, not globally
+- **Interactive Elements**: Hover effects on links and navigation with smooth transitions
+- **Responsive Design**: Mobile-first approach with `@custom-media` breakpoints
+- **Page Titles**: Conditional display of page titles (hidden on home and tags pages)
+
+### Color System
+
+- Content headings use a professional color palette (blues, teals, browns)
+- Link hover effects provide visual feedback (color changes, animated underlines)
+- Consistent spacing and typography scaling across all components

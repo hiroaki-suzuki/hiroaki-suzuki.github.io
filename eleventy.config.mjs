@@ -2,77 +2,94 @@ import prettier from 'prettier';
 import { feedPlugin } from '@11ty/eleventy-plugin-rss';
 import { DateTime } from 'luxon';
 
-const rootDir = 'tech-notebook/public';
+const CONFIG = {
+  rootDir: 'tech-notebook/public',
+  defaultLayout: '../../../layout/default.njk',
+  site: {
+    language: 'ja',
+    title: 'Hiroaki SuzukiのWeb技術ノート',
+    subtitle: 'Hiroaki SuzukiのWeb技術ノート',
+    base: 'https://hiroaki-suzuki.github.io',
+    author: 'Hiroaki Suzuki',
+  },
+  rss: {
+    limit: 20,
+  },
+  prettier: {
+    parser: 'html',
+    printWidth: 120,
+    tabWidth: 2,
+    useTabs: false,
+  },
+};
 
-export default async function (eleventyConfig) {
-  // RSSフィードの生成
+// RSS フィード設定
+function setupRSSFeed(eleventyConfig) {
   eleventyConfig.addPlugin(feedPlugin, {
     type: 'atom',
     outputPath: '/feed.xml',
     collection: {
       name: 'all',
-      limit: 20,
+      limit: CONFIG.rss.limit,
     },
     metadata: {
-      language: 'ja',
-      title: 'Hiroaki SuzukiのWeb技術ノート',
-      subtitle: 'Hiroaki SuzukiのWeb技術ノート',
-      base: 'https://hiroaki-suzuki.github.io',
+      language: CONFIG.site.language,
+      title: CONFIG.site.title,
+      subtitle: CONFIG.site.subtitle,
+      base: CONFIG.site.base,
       author: {
-        name: 'Hiroaki SUzuki',
+        name: CONFIG.site.author,
       },
     },
   });
+}
 
-  // デフォルトのレイアウト定義
-  eleventyConfig.addGlobalData('layout', '../../../layout/default.njk');
+// 静的ファイルのコピー設定
+function setupPassthroughCopy(eleventyConfig) {
+  const assets = ['./images', `${CONFIG.rootDir}/images`, './libs', './js'];
+  assets.forEach((asset) => {
+    eleventyConfig.addPassthroughCopy(asset);
+  });
+}
 
-  // 画像のコピー
-  eleventyConfig.addPassthroughCopy(`./images`);
-  eleventyConfig.addPassthroughCopy(`${rootDir}/images`);
-
-  // ライブラリのコピー
-  eleventyConfig.addPassthroughCopy(`./libs`);
-
-  // JavaScriptのコピー
-  eleventyConfig.addPassthroughCopy(`./js`);
-
-  // [[WikiLink]]の変換
+// コンテンツ変換設定
+function setupContentTransforms(eleventyConfig) {
+  // WikiLink変換
   eleventyConfig.addTransform('transform-wiki-link', async function (content) {
     return content.replace(/\[\[(.*?)\]\]/g, '<a href="/$1/">$1</a>');
   });
-  // 外部リンクを別タブで開くように変換
+
+  // 外部リンク変換
   eleventyConfig.addTransform('transform-external-link', async function (content) {
     return content.replace(/<a href="http/g, '<a target="_blank" href="http');
   });
-  // 画像のパスを修正
+
+  // 画像パス修正
   eleventyConfig.addTransform('transform-image-path', async function (content) {
     return content.replace(/src="images/g, 'src="/images');
   });
-  // テーブルのスクロールのための親要素を追加
+
+  // テーブルスクロール対応
   eleventyConfig.addTransform('transform-table-scroll', async function (content) {
-    const replacedContent = content.replace(/<table>/g, '<div class="table-scroll"><table>');
-    return replacedContent.replace(/<\/table>/g, '</table></div>');
+    const withScrollWrapper = content.replace(/<table>/g, '<div class="table-scroll"><table>');
+    return withScrollWrapper.replace(/<\/table>/g, '</table></div>');
   });
 
-  // HTMLの整形
+  // HTML整形
   eleventyConfig.addTransform('prettier', async (content, outputPath) => {
     if (outputPath?.endsWith('.html')) {
-      return prettier.format(content, {
-        parser: 'html',
-        printWidth: 120,
-        tabWidth: 2,
-        useTabs: false,
-      });
+      return prettier.format(content, CONFIG.prettier);
     }
     return content;
   });
+}
 
-  // タグリストの生成
+// コレクション設定
+function setupCollections(eleventyConfig) {
   eleventyConfig.addCollection('tagList', function (collectionApi) {
     const tagCounts = {};
 
-    // 各アイテムのタグを走査してカウント
+    // タグ使用回数の集計
     collectionApi.getAll().forEach((item) => {
       if (item.data.tags) {
         item.data.tags.forEach((tag) => {
@@ -81,44 +98,59 @@ export default async function (eleventyConfig) {
       }
     });
 
-    // キー（タグ名）でソート
-    const sortedTags = Object.keys(tagCounts).sort();
-
-    // ソート済みのタグ毎に { tag, count } のオブジェクトを作成して配列で返す
-    return sortedTags.map((tag) => ({
-      label: tag.replace('_', ' '),
-      link: tag,
-      count: tagCounts[tag],
-    }));
+    // タグのソートと整形
+    return Object.keys(tagCounts)
+      .sort()
+      .map((tag) => ({
+        label: tag.replace('_', ' '),
+        link: tag,
+        count: tagCounts[tag],
+      }));
   });
+}
 
-  // dateFormatフィルターを修正（タイムゾーン指定なしに戻す）
+// フィルター設定
+function setupFilters(eleventyConfig) {
   eleventyConfig.addNunjucksFilter('dateFormat', function (dateValue, format = 'yyyy-MM-dd HH:mm') {
     if (!dateValue) return '';
+
     let dt;
+    
     if (typeof dateValue === 'string') {
       dt = DateTime.fromISO(dateValue);
       if (!dt.isValid) {
         dt = DateTime.fromFormat(dateValue, 'yyyy-MM-dd');
       }
     } else if (dateValue instanceof Date) {
-      // UTC値をISO文字列に変換し、Asia/Tokyoタイムゾーンで解釈し、ローカル時刻を維持
-      dt = DateTime.fromISO(dateValue.toISOString(), { zone: 'Asia/Tokyo', setZone: true });
-    } else if (
-      dateValue &&
-      typeof dateValue === 'object' &&
-      typeof dateValue.toFormat === 'function'
-    ) {
+      dt = DateTime.fromISO(dateValue.toISOString(), { 
+        zone: 'Asia/Tokyo', 
+        setZone: true 
+      });
+    } else if (dateValue?.toFormat) {
       dt = dateValue;
     } else {
       dt = DateTime.fromJSDate(new Date(dateValue));
     }
+
     return dt.isValid ? dt.toFormat(format) : String(dateValue);
   });
+}
+
+// メイン設定関数
+export default async function (eleventyConfig) {
+  // グローバルデータ設定
+  eleventyConfig.addGlobalData('layout', CONFIG.defaultLayout);
+
+  // 各機能の設定
+  setupRSSFeed(eleventyConfig);
+  setupPassthroughCopy(eleventyConfig);
+  setupContentTransforms(eleventyConfig);
+  setupCollections(eleventyConfig);
+  setupFilters(eleventyConfig);
 
   return {
     dir: {
-      input: rootDir,
+      input: CONFIG.rootDir,
     },
   };
 }
