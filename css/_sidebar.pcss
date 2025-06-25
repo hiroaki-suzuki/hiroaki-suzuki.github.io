@@ -15,6 +15,28 @@
 
       a {
         color: var(--color-nav);
+        position: relative;
+        display: inline-block;
+        transition: color 0.2s ease;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: var(--color-link);
+          transition: width 0.3s ease;
+        }
+
+        &:hover {
+          color: var(--color-link);
+
+          &::after {
+            width: 100%;
+          }
+        }
       }
     }
   }
