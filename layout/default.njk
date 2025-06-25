@@ -67,13 +67,16 @@
           </ul>
         </nav>
       </aside>
-      <div class="content line-numbers">
+      <article class="content line-numbers">
+        {% if title and title != "ホーム" and not page.url.startsWith('/tags/') %}
+        <h1 class="page-title">{{ title }}</h1>
+        {% endif %}
         {{ content | safe }}
         {% if updated %}
           <div class="created-date">作成日: {{ created | dateFormat() }}</div>
           <div class="updated-date">更新日: {{ updated | dateFormat() }}</div>
         {% endif %}
-      </div>
+      </article>
     </main>
     <footer class="footer">
       <p>&copy; 2025 Hiroaki Suzuki</p>
