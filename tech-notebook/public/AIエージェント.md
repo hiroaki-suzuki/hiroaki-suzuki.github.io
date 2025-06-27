@@ -12,3 +12,4 @@ tags:
 
 ## エージェント
 - [[Claude Code]]
+- [[Gemini CLI]]
