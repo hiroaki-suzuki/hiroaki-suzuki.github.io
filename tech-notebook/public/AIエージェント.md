@@ -2,7 +2,7 @@
 title: AIエージェント
 permalink: ai-agent/
 created: 2025-06-27T09:11
-updated: 2025-06-27T09:11
+updated: 2025-06-27T22:52:00
 tags:
   - AI
   - AIエージェント
@@ -13,3 +13,6 @@ tags:
 ## エージェント
 - [[Claude Code]]
 - [[Gemini CLI]]
+
+## Vibe Coding
+- [プログラミングの基本概念｜ノンプログラマーズ・プログラミング - WIP](https://zenn.dev/mizchi/books/non-programmars/viewer/01-programming)
