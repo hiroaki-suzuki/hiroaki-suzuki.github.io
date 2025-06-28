@@ -20,4 +20,4 @@ tags:
 - [Claude Code: Best practices for agentic coding](https://www.anthropic.com/engineering/claude-code-best-practices)
 
 ## みんなのClaude.md
-- [[https://x.com/sasakama_code/status/1938388070354849882]]
+- [https://x.com/sasakama_code/status/1938388070354849882](https://x.com/sasakama_code/status/1938388070354849882)
