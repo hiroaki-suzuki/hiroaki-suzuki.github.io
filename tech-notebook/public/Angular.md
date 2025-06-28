@@ -1,6 +1,6 @@
 ---
 title: Angular
-permalink: angular
+permalink: angular/
 created: 2025-06-27T22:23:00
 updated: 2025-06-27T22:23:00
 tags:
