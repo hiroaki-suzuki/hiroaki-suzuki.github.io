@@ -1,6 +1,6 @@
 ---
 title: AIアライメント
-permalink: ai-alignment
+permalink: ai-alignment/
 created: 2025-06-25T09:27:00
 updated: 2025-06-25T09:27:00
 tags:
