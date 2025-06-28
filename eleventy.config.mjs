@@ -53,10 +53,19 @@ function setupPassthroughCopy(eleventyConfig) {
 }
 
 // コンテンツ変換設定
-function setupContentTransforms(eleventyConfig) {
+function setupContentTransforms(eleventyConfig, globalLinkMap) {
   // WikiLink変換
   eleventyConfig.addTransform('transform-wiki-link', async function (content) {
-    return content.replace(/\[\[(.*?)\]\]/g, '<a href="/$1/">$1</a>');
+    return content.replace(/\[\[(.*?)\]\]/g, (match, linkText) => {
+      // リンクマップから対応するURLを検索
+      const targetUrl = globalLinkMap[linkText];
+      if (targetUrl) {
+        return `<a href="${targetUrl}">${linkText}</a>`;
+      }
+      
+      // マップにない場合は従来通り
+      return `<a href="/${linkText}/">${linkText}</a>`;
+    });
   });
 
   // 外部リンク変換
@@ -85,7 +94,39 @@ function setupContentTransforms(eleventyConfig) {
 }
 
 // コレクション設定
-function setupCollections(eleventyConfig) {
+function setupCollections(eleventyConfig, globalLinkMap) {
+  // タイトル→permalinkマッピングコレクション
+  eleventyConfig.addCollection('linkMap', function (collectionApi) {
+    const linkMap = {};
+    
+    collectionApi.getAll().forEach((item) => {
+      // ファイル名からタイトルを抽出（拡張子除去）
+      const fileName = item.inputPath.split('/').pop().replace('.md', '');
+      
+      // permalinkを取得、なければエラー
+      if (!item.data.permalink) {
+        throw new Error(`permalink が設定されていません: ${fileName}`);
+      }
+      
+      let targetUrl = `/${item.data.permalink}`;
+      if (!targetUrl.endsWith('/')) targetUrl += '/';
+      
+      // ファイル名とタイトルの両方をキーとして登録
+      linkMap[fileName] = targetUrl;
+      if (item.data.title && item.data.title !== fileName) {
+        linkMap[item.data.title] = targetUrl;
+      }
+      
+      // グローバルリンクマップにも追加
+      globalLinkMap[fileName] = targetUrl;
+      if (item.data.title && item.data.title !== fileName) {
+        globalLinkMap[item.data.title] = targetUrl;
+      }
+    });
+    
+    return linkMap;
+  });
+
   eleventyConfig.addCollection('tagList', function (collectionApi) {
     const tagCounts = {};
 
@@ -138,14 +179,17 @@ function setupFilters(eleventyConfig) {
 
 // メイン設定関数
 export default async function (eleventyConfig) {
+  // リンクマップをグローバル変数として設定
+  let globalLinkMap = {};
+
   // グローバルデータ設定
   eleventyConfig.addGlobalData('layout', CONFIG.defaultLayout);
 
   // 各機能の設定
   setupRSSFeed(eleventyConfig);
   setupPassthroughCopy(eleventyConfig);
-  setupContentTransforms(eleventyConfig);
-  setupCollections(eleventyConfig);
+  setupContentTransforms(eleventyConfig, globalLinkMap);
+  setupCollections(eleventyConfig, globalLinkMap);
   setupFilters(eleventyConfig);
 
   return {
