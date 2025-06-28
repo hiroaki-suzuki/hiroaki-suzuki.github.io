@@ -1,6 +1,6 @@
 ---
 title: Gemini CLI
-permalink: gemini-cli
+permalink: gemini-cli/
 created: 2025-06-27T22:36:00
 updated: 2025-06-27T22:36:00
 tags:
