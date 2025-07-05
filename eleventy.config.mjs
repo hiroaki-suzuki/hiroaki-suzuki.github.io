@@ -56,7 +56,13 @@ function setupRSSFeed(eleventyConfig) {
 
 // 静的ファイルのコピー設定
 function setupPassthroughCopy(eleventyConfig) {
-  const assets = ['./images', `${CONFIG.rootDir}/images`, './libs', './js'];
+  const assets = [
+    './images',
+    `${CONFIG.rootDir}/images`,
+    './libs',
+    './js',
+    'google991b369694f3b38e.html',
+  ];
   assets.forEach((asset) => {
     eleventyConfig.addPassthroughCopy(asset);
   });
