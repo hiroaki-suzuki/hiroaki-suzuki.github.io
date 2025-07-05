@@ -7,6 +7,11 @@ tags:
   - AI
   - AIエージェント
 ---
+## 公式
+- [Claude Code概要](https://docs.anthropic.com/ja/docs/claude-code/overview)
+- [Claude Code: Best practices for agentic coding](https://www.anthropic.com/engineering/claude-code-best-practices)
+- [プロンプトインプルーバーを使用してプロンプトを最適化する](https://docs.anthropic.com/ja/docs/build-with-claude/prompt-engineering/prompt-improver)
+
 ## リンク
 - [Claude向け人名＋テクニック一覧(t_wadaさんのTDDなど)](https://www.memory-lovers.blog/entry/2025/06/27/102550)
 - [AnthropicのDesktop Extensions (DXT)完全ガイド： ローカルAIアプリケーションの新時代 ](https://zenn.dev/cadp/articles/6d9dd374fd3d32)
@@ -14,11 +19,10 @@ tags:
 - [Claude Code コマンドチートシート完全ガイド](https://qiita.com/akira_papa_AI/items/d68782fbf03ffd9b2f43)
 - [スマホからClaude Codeを操作して、いつでもどこでもコーディング可能にする方法](https://zenn.dev/dirtyman/articles/cc724b87681593)
 - [ryuzeeさんが推奨するスタイル](https://x.com/ryuzee/status/1938355011567948261?s=46)
+- [ClaudeCodeの日本語入力問題、完全に理解した](https://zenn.dev/atu4403/articles/claudecode-japanese-input-solution#%E6%96%B0%E3%81%9F%E3%81%AA%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B6%E3%83%BC%E3%81%A8%E3%81%AE%E5%87%BA%E4%BC%9A%E3%81%84)
+- [Claude Code の /hooks コマンドを使って、承認依頼とタスク完了時にスマホへ通知を飛ばす](https://zenn.dev/keit0728/articles/bfb68f669755a7)
 
-## 公式
-- [Claude Code概要](https://docs.anthropic.com/ja/docs/claude-code/overview)
-- [Claude Code: Best practices for agentic coding](https://www.anthropic.com/engineering/claude-code-best-practices)
-- [プロンプトインプルーバーを使用してプロンプトを最適化する](https://docs.anthropic.com/ja/docs/build-with-claude/prompt-engineering/prompt-improver)
+
 
 ## みんなのClaude.md
 - [https://x.com/sasakama_code/status/1938388070354849882](https://x.com/sasakama_code/status/1938388070354849882)
