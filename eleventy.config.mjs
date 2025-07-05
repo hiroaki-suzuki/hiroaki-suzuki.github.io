@@ -1,6 +1,7 @@
 import prettier from 'prettier';
 import { feedPlugin } from '@11ty/eleventy-plugin-rss';
 import { DateTime } from 'luxon';
+import pluginSitemap from '@quasibit/eleventy-plugin-sitemap';
 
 const CONFIG = {
   rootDir: 'tech-notebook/public',
@@ -22,6 +23,15 @@ const CONFIG = {
     useTabs: false,
   },
 };
+
+function setUpSitemap(eleventyConfig) {
+  // Sitemap プラグイン
+  eleventyConfig.addPlugin(pluginSitemap, {
+    sitemap: {
+      hostname: CONFIG.site.base,
+    },
+  });
+}
 
 // RSS フィード設定
 function setupRSSFeed(eleventyConfig) {
@@ -62,7 +72,7 @@ function setupContentTransforms(eleventyConfig, globalLinkMap) {
       if (targetUrl) {
         return `<a href="${targetUrl}">${linkText}</a>`;
       }
-      
+
       // マップにない場合は従来通り
       return `<a href="/${linkText}/">${linkText}</a>`;
     });
@@ -98,38 +108,39 @@ function setupCollections(eleventyConfig, globalLinkMap) {
   // タイトル→permalinkマッピングコレクション
   eleventyConfig.addCollection('linkMap', function (collectionApi) {
     const linkMap = {};
-    
+
     collectionApi.getAll().forEach((item) => {
       // ファイル名からタイトルを抽出（拡張子除去）
       const fileName = item.inputPath.split('/').pop().replace('.md', '');
-      
+
       // permalinkを取得、なければエラー
       if (!item.data.permalink) {
         throw new Error(`permalink が設定されていません: ${fileName}`);
       }
-      
+
       let targetUrl = `/${item.data.permalink}`;
       if (!targetUrl.endsWith('/')) targetUrl += '/';
-      
+
       // ファイル名とタイトルの両方をキーとして登録
       linkMap[fileName] = targetUrl;
       if (item.data.title && item.data.title !== fileName) {
         linkMap[item.data.title] = targetUrl;
       }
-      
+
       // グローバルリンクマップにも追加
       globalLinkMap[fileName] = targetUrl;
       if (item.data.title && item.data.title !== fileName) {
         globalLinkMap[item.data.title] = targetUrl;
       }
     });
-    
+
     return linkMap;
   });
 
   eleventyConfig.addCollection('postsByDate', function (collectionApi) {
-    return collectionApi.getAll()
-      .filter(item => {
+    return collectionApi
+      .getAll()
+      .filter((item) => {
         // ホームページとタグページを除外
         return !item.inputPath.includes('ホーム.md') && !item.inputPath.includes('tags.njk');
       })
@@ -170,16 +181,16 @@ function setupFilters(eleventyConfig) {
     if (!dateValue) return '';
 
     let dt;
-    
+
     if (typeof dateValue === 'string') {
       dt = DateTime.fromISO(dateValue);
       if (!dt.isValid) {
         dt = DateTime.fromFormat(dateValue, 'yyyy-MM-dd');
       }
     } else if (dateValue instanceof Date) {
-      dt = DateTime.fromISO(dateValue.toISOString(), { 
-        zone: 'Asia/Tokyo', 
-        setZone: true 
+      dt = DateTime.fromISO(dateValue.toISOString(), {
+        zone: 'Asia/Tokyo',
+        setZone: true,
       });
     } else if (dateValue?.toFormat) {
       dt = dateValue;
@@ -242,6 +253,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addGlobalData('layout', CONFIG.defaultLayout);
 
   // 各機能の設定
+  setUpSitemap(eleventyConfig);
   setupRSSFeed(eleventyConfig);
   setupPassthroughCopy(eleventyConfig);
   setupContentTransforms(eleventyConfig, globalLinkMap);

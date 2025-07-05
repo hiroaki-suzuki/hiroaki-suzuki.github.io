@@ -3,5 +3,9 @@
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
   "editor.insertSpaces": true,
-  "editor.renderWhitespace": "all"
+  "editor.renderWhitespace": "all",
+  "cSpell.words": [
+    "luxon",
+    "quasibit"
+  ]
 }

@@ -33,6 +33,7 @@
     "prettier": "3.4.2"
   },
   "dependencies": {
+    "@quasibit/eleventy-plugin-sitemap": "^2.2.0",
     "luxon": "^3.6.1"
   }
 }
