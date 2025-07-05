@@ -130,9 +130,16 @@ tags:
 ![公式の画像](https://docs.databricks.com/aws/ja/assets/images/object-model-40d730065eefed283b936a8664f1b247.png)
 
 #### カタログ
+![公式の画像](https://docs.databricks.com/aws/ja/assets/images/object-model-catalog-21738b620d61216dc15b52317f05c2ed.png)
+公式の画像
+
 - 最上位のコンテナ
 - データ資産を整理するために使用する
 - ストレージの資格情報や外部ロケーションなど、 データのセキュリティ保護できないオブジェクトは 、Unity Catalogでデータガバナンス モデルを管理するために使用する
+##### 作成に向けての考慮すべき点
+- 組織のデータガバナンスの最上位モデルになるため、どのようなガバナンスをもとに利用するのかを明確にする必要がある
+	- ここを失敗すると権限の制御が難しくなる
+
 
 #### スキーマ
 - データベースとも呼ばれる
