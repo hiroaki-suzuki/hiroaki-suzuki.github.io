@@ -284,3 +284,4 @@ tech-notebook/*
 _site
 tech-notebook/**/*.drawio
 tech-notebook/**/*.drawio.bkp
+prompt-memo.md
