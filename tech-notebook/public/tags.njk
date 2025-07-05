@@ -6,12 +6,28 @@ pagination:
   alias: tag
 permalink: /tags/{{ tag }}/
 ---
+{% if tag != "all" %}
 <section class="tag-page-list">
   <h2>{{ tag }} のページ一覧</h2>
-  <ul class="tag-list">
+  <div class="cards-container">
     {% set tagList = collections[ tag ] %}
     {% for post in tagList | reverse %}
-        <li><a href="{{ post.url }}">{{ post.data.title }}</a></li>
+      <a href="{{ post.url }}" class="card">
+        <h2 class="card__title">{{ post.data.title }}</h2>
+        <p class="card__excerpt">
+          {{ post.templateContent | striptags | truncate(200) }}
+        </p>
+        <div class="card__meta">
+          <span class="card__date">
+            {% if post.data.updated %}
+              {{ post.data.updated | dateFormat() }}
+            {% else %}
+              {{ post.data.created | dateFormat() }}
+            {% endif %}
+          </span>
+        </div>
+      </a>
     {% endfor %}
-  </ul>
+  </div>
 </section>
+{% endif %}
