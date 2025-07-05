@@ -69,15 +69,12 @@
       </aside>
       <article class="content line-numbers">
         {% if title == "ホーム" %}
-          <h1 class="page-title--home">技術ノート</h1>
-          <p class="page-subtitle">{{ collections.postsByDate.length }}件の記事</p>
-          
           <div class="cards-container">
             {% for post in collections.postsByDate %}
               <a href="{{ post.url }}" class="card">
                 <h2 class="card__title">{{ post.data.title }}</h2>
                 <p class="card__excerpt">
-                  {{ post.templateContent | striptags | truncate(50) }}
+                  {{ post.templateContent | striptags | truncate(200) }}
                 </p>
                 <div class="card__meta">
                   <span class="card__date">
