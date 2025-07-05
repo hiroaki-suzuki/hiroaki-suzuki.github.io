@@ -192,7 +192,17 @@ function setupFilters(eleventyConfig) {
 
   eleventyConfig.addNunjucksFilter('striptags', function (content) {
     if (typeof content !== 'string') return '';
-    return content.replace(/<[^>]*>/g, '');
+    // HTMLタグを除去し、HTMLエンティティをデコード、WikiLinkの括弧のみ除去
+    return content
+      .replace(/<[^>]*>/g, '')
+      .replace(/\[\[([^\]]*)\]\]/g, '$1')
+      .replace(/&quot;/g, '"')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
   });
 
   eleventyConfig.addNunjucksFilter('truncate', function (content, length = 50) {
@@ -203,7 +213,17 @@ function setupFilters(eleventyConfig) {
 
   eleventyConfig.addLiquidFilter('striptags', function (content) {
     if (typeof content !== 'string') return '';
-    return content.replace(/<[^>]*>/g, '');
+    // HTMLタグを除去し、HTMLエンティティをデコード、WikiLinkの括弧のみ除去
+    return content
+      .replace(/<[^>]*>/g, '')
+      .replace(/\[\[([^\]]*)\]\]/g, '$1')
+      .replace(/&quot;/g, '"')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
   });
 
   eleventyConfig.addLiquidFilter('truncate', function (content, length = 50) {
