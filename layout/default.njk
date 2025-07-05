@@ -68,13 +68,73 @@
         </nav>
       </aside>
       <article class="content line-numbers">
-        {% if title and title != "ホーム" and not page.url.startsWith('/tags/') %}
-        <h1 class="page-title">{{ title }}</h1>
-        {% endif %}
-        {{ content | safe }}
-        {% if updated %}
-          <div class="created-date">作成日: {{ created | dateFormat() }}</div>
-          <div class="updated-date">更新日: {{ updated | dateFormat() }}</div>
+        {% if title == "ホーム" and posts %}
+          <h1 class="page-title--home">技術ノート</h1>
+          <p class="page-subtitle">{{ posts.length }}件の記事</p>
+          
+          <div class="cards-container">
+            {% for post in posts %}
+              <a href="{{ post.url }}" class="card">
+                <h2 class="card__title">{{ post.data.title }}</h2>
+                <p class="card__excerpt">
+                  {{ post.content | striptags | truncate(50) }}
+                </p>
+                <div class="card__meta">
+                  <span class="card__date">
+                    {% if post.data.updated %}
+                      {{ post.data.updated | dateFormat() }}
+                    {% else %}
+                      {{ post.data.created | dateFormat() }}
+                    {% endif %}
+                  </span>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+          
+          {% if pagination.pages.length > 1 %}
+            <nav class="pagination" aria-labelledby="posts-pagination">
+              <h2 id="posts-pagination" class="sr-only">記事一覧のページネーション</h2>
+              <ol class="pagination__list">
+                <li class="pagination__item">
+                  {% if pagination.href.previous %}
+                    <a href="{{ pagination.href.previous }}" class="pagination__link">前のページ</a>
+                  {% else %}
+                    <span class="pagination__link disabled">前のページ</span>
+                  {% endif %}
+                </li>
+                
+                {%- for pageEntry in pagination.pages %}
+                  <li class="pagination__item">
+                    <a href="{{ pagination.hrefs[loop.index0] }}"
+                       class="pagination__link {% if page.url == pagination.hrefs[loop.index0] %}current{% endif %}"
+                       {% if page.url == pagination.hrefs[loop.index0] %} 
+                         aria-current="page"
+                       {% endif %}>
+                      {{ loop.index }}
+                    </a>
+                  </li>
+                {%- endfor %}
+                
+                <li class="pagination__item">
+                  {% if pagination.href.next %}
+                    <a href="{{ pagination.href.next }}" class="pagination__link">次のページ</a>
+                  {% else %}
+                    <span class="pagination__link disabled">次のページ</span>
+                  {% endif %}
+                </li>
+              </ol>
+            </nav>
+          {% endif %}
+        {% else %}
+          {% if title and title != "ホーム" and not page.url.startsWith('/tags/') %}
+          <h1 class="page-title">{{ title }}</h1>
+          {% endif %}
+          {{ content | safe }}
+          {% if updated %}
+            <div class="created-date">作成日: {{ created | dateFormat() }}</div>
+            <div class="updated-date">更新日: {{ updated | dateFormat() }}</div>
+          {% endif %}
         {% endif %}
       </article>
     </main>

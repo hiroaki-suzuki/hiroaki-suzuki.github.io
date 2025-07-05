@@ -127,6 +127,20 @@ function setupCollections(eleventyConfig, globalLinkMap) {
     return linkMap;
   });
 
+  eleventyConfig.addCollection('postsByDate', function (collectionApi) {
+    return collectionApi.getAll()
+      .filter(item => {
+        // ホームページとタグページを除外
+        return !item.inputPath.includes('ホーム.md') && !item.inputPath.includes('tags.njk');
+      })
+      .sort((a, b) => {
+        // 更新日降順（新しい順）
+        const dateA = a.data.updated || a.data.created || a.date;
+        const dateB = b.data.updated || b.data.created || b.date;
+        return new Date(dateB) - new Date(dateA);
+      });
+  });
+
   eleventyConfig.addCollection('tagList', function (collectionApi) {
     const tagCounts = {};
 
@@ -174,6 +188,28 @@ function setupFilters(eleventyConfig) {
     }
 
     return dt.isValid ? dt.toFormat(format) : String(dateValue);
+  });
+
+  eleventyConfig.addNunjucksFilter('striptags', function (content) {
+    if (typeof content !== 'string') return '';
+    return content.replace(/<[^>]*>/g, '');
+  });
+
+  eleventyConfig.addNunjucksFilter('truncate', function (content, length = 50) {
+    if (typeof content !== 'string') return '';
+    if (content.length <= length) return content;
+    return content.substring(0, length) + '...';
+  });
+
+  eleventyConfig.addLiquidFilter('striptags', function (content) {
+    if (typeof content !== 'string') return '';
+    return content.replace(/<[^>]*>/g, '');
+  });
+
+  eleventyConfig.addLiquidFilter('truncate', function (content, length = 50) {
+    if (typeof content !== 'string') return '';
+    if (content.length <= length) return content;
+    return content.substring(0, length) + '...';
   });
 }
 
