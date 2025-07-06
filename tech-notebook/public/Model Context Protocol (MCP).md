@@ -12,3 +12,6 @@ tags:
 
 
 ## リンク
+
+## MCP
+- [@textlint-ja/textlint-rule-preset-ai-writing](https://github.com/textlint-ja/textlint-rule-preset-ai-writing)

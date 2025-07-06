@@ -21,6 +21,8 @@ tags:
 - [ryuzeeさんが推奨するスタイル](https://x.com/ryuzee/status/1938355011567948261?s=46)
 - [ClaudeCodeの日本語入力問題、完全に理解した](https://zenn.dev/atu4403/articles/claudecode-japanese-input-solution#%E6%96%B0%E3%81%9F%E3%81%AA%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B6%E3%83%BC%E3%81%A8%E3%81%AE%E5%87%BA%E4%BC%9A%E3%81%84)
 - [Claude Code の /hooks コマンドを使って、承認依頼とタスク完了時にスマホへ通知を飛ばす](https://zenn.dev/keit0728/articles/bfb68f669755a7)
+- [ClaudeLog](https://www.claudelog.com/)
+- [](https://zenn.dev/mizchi/articles/claude-code-orchestrator)
 
 
 
