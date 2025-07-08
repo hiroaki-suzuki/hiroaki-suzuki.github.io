@@ -2,7 +2,7 @@
 title: Claude Code
 permalink: claude-code/
 created: 2025-06-27T19:37
-updated: 2025-07-05T10:50:00
+updated: 2025-07-08T22:11:00
 tags:
   - AI
   - AIエージェント
@@ -22,8 +22,8 @@ tags:
 - [ClaudeCodeの日本語入力問題、完全に理解した](https://zenn.dev/atu4403/articles/claudecode-japanese-input-solution#%E6%96%B0%E3%81%9F%E3%81%AA%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B6%E3%83%BC%E3%81%A8%E3%81%AE%E5%87%BA%E4%BC%9A%E3%81%84)
 - [Claude Code の /hooks コマンドを使って、承認依頼とタスク完了時にスマホへ通知を飛ばす](https://zenn.dev/keit0728/articles/bfb68f669755a7)
 - [ClaudeLog](https://www.claudelog.com/)
-- [](https://zenn.dev/mizchi/articles/claude-code-orchestrator)
-
+- [Claude Code 版 Orchestaror で複雑なタスクをステップ実行する](https://zenn.dev/mizchi/articles/claude-code-orchestrator)
+- [AI時代のソフトウェア開発を考える（2025/07版）](https://speakerdeck.com/twada/agentic-software-engineering-findy-2025-07-edition)
 
 
 ## みんなのClaude.md
@@ -33,6 +33,8 @@ tags:
 - [https://x.com/tokoroten/status/1936656130106946004](https://x.com/tokoroten/status/1936656130106946004)
 - [https://x.com/naoya_ito/status/1929073291970363545](https://x.com/naoya_ito/status/1929073291970363545)
 
+## 関連プロダクト
+- [context-engineering-intro](https://github.com/coleam00/context-engineering-intro)
 ## Best practices
 - 以下からのメモ
 	- [Claude Code: Best practices for agentic coding](https://www.anthropic.com/engineering/claude-code-best-practices)
