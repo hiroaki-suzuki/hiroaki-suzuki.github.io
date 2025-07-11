@@ -15,7 +15,7 @@ tags:
 - [Demo Center](https://www.databricks.com/resources/demos)
 
 ## リンク
-- 
+- [Databricksにおけるデータパイプラインとオーケストレーション](https://qiita.com/taka_yayoi/items/dd4fe4af945c3c1eabe5)
 
 ## 本
 - [Databricks認定データエンジニアアソシエイト 学習ガイド](https://learning.oreilly.com/library/view/databricksren-ding-detaenziniaasosieito-xue-xi-gaido/9798341634305/)

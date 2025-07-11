@@ -32,6 +32,8 @@ tags:
 - [https://x.com/gorilla0513/status/1938075769806438788](https://x.com/gorilla0513/status/1938075769806438788)
 - [https://x.com/tokoroten/status/1936656130106946004](https://x.com/tokoroten/status/1936656130106946004)
 - [https://x.com/naoya_ito/status/1929073291970363545](https://x.com/naoya_ito/status/1929073291970363545)
+- [Kent Beck | BPlusTree3](https://github.com/KentBeck/BPlusTree3/blob/main/rust/docs/CLAUDE.md)
+- 
 
 ## 関連プロダクト
 - [context-engineering-intro](https://github.com/coleam00/context-engineering-intro)

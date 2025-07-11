@@ -2,7 +2,7 @@
 title: AIエージェント
 permalink: ai-agent/
 created: 2025-06-27T09:11
-updated: 2025-06-27T22:52:00
+updated: 2025-07-11T17:05:00
 tags:
   - AI
   - AIエージェント
@@ -16,3 +16,8 @@ tags:
 
 ## Vibe Coding
 - [プログラミングの基本概念｜ノンプログラマーズ・プログラミング - WIP](https://zenn.dev/mizchi/books/non-programmars/viewer/01-programming)
+- [Claude Code + Container Use と Cursor で作る ローカル並列開発環境のススメ / ccc local dev](https://speakerdeck.com/kaelaela/ccc-local-dev)
+- 
+
+## ライブラリ
+- [VibeCoding Logger](https://github.com/fladdict/vibe-logger)
