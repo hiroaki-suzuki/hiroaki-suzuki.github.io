@@ -16,6 +16,7 @@ tags:
 
 ## リンク
 - [Databricksにおけるデータパイプラインとオーケストレーション](https://qiita.com/taka_yayoi/items/dd4fe4af945c3c1eabe5)
+- [Databricksにおける機能的ワークスペースの構成方法](https://qiita.com/taka_yayoi/items/f2aedc25516c43767f7f)
 
 ## 本
 - [Databricks認定データエンジニアアソシエイト 学習ガイド](https://learning.oreilly.com/library/view/databricksren-ding-detaenziniaasosieito-xue-xi-gaido/9798341634305/)

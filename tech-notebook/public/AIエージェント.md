@@ -13,6 +13,7 @@ tags:
 ## エージェント
 - [[Claude Code]]
 - [[Gemini CLI]]
+- [[Kiro]]
 
 ## Vibe Coding
 - [プログラミングの基本概念｜ノンプログラマーズ・プログラミング - WIP](https://zenn.dev/mizchi/books/non-programmars/viewer/01-programming)

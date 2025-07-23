@@ -35,6 +35,10 @@ tags:
 - [Kent Beck | BPlusTree3](https://github.com/KentBeck/BPlusTree3/blob/main/rust/docs/CLAUDE.md)
 - 
 
+## 動画
+- [Caude Codeの使い方](https://youtu.be/n7iT5r0Sl_Y?si=N1ROFPDrOJVZIk74)
+
+
 ## 関連プロダクト
 - [context-engineering-intro](https://github.com/coleam00/context-engineering-intro)
 ## Best practices
