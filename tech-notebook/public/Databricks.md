@@ -7,6 +7,7 @@ tags:
   - データ分析基盤
   - データレイク
   - データウェアハウス
+  - データレイクハウス
 ---
 ## 公式
 - [Databricks: Leading Data and AI Solutions for Enterprises](https://www.databricks.com/)

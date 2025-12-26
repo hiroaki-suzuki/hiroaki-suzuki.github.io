@@ -24,6 +24,7 @@ tags:
 - [ClaudeLog](https://www.claudelog.com/)
 - [Claude Code 版 Orchestaror で複雑なタスクをステップ実行する](https://zenn.dev/mizchi/articles/claude-code-orchestrator)
 - [AI時代のソフトウェア開発を考える（2025/07版）](https://speakerdeck.com/twada/agentic-software-engineering-findy-2025-07-edition)
+- [Claude Code 疲れを軽減する 30+ 個のカスタムコマンド](https://wasabeef.jp/)
 
 
 ## みんなのClaude.md
