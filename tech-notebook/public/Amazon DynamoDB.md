@@ -8,6 +8,7 @@ tags:
   - データベース
   - NoSQL
   - KVS
+  - DynamoDB
 ---
 ## セカンダリインデックス
 

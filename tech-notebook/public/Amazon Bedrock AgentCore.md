@@ -3,6 +3,10 @@ title: Amazon Bedrock AgentCore
 permalink: amazon-bedrock-agentcore/
 created: 2025-03-06 11:00
 updated: 2025-03-06 11:00
+tags:
+  - AWS
+  - Bedrock
+  - Bedrock_AgentCore
 ---
 ## 概要
 AIエージェントを本番運用するためのもの。2025年10月にGAになった。
