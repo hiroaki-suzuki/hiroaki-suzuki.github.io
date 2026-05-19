@@ -2,7 +2,7 @@
 title: Big Query - Google Cloud
 permalink: big-query-google-cloud/
 created: 2026-05-18 22:00:00
-updated: 2026-05-18 22:00:00
+updated: 2026-05-19 19:00:00
 tags:
   - Google_Cloud
   - BigQuery
@@ -717,3 +717,212 @@ ORDER BY is_partitioning_column DESC, clustering_ordinal_position;
 bq show プロジェクト:データセット.テーブル名
 # Clustering Fields: user_id, category　← この行があれば設定済み
 ```
+
+## クエリ最適化 ベストプラクティス（10原則）
+
+### チェックリスト（クエリ作成時）
+
+- `SELECT *` を使っていないか？ → 必要な列のみ指定
+- パーティション列でフィルタしているか？ → `WHERE` に必ず含める
+- `LIMIT` だけでコスト削減しようとしていないか？ → パーティション列フィルタで絞る
+- JOINの順序は適切か？ → 大テーブル左・小テーブル右
+- 同一CTEを複数回参照していないか？ → 再計算を避けるためテンポラリテーブルを検討
+- 正確な値が不要な集計はないか？ → `APPROX_COUNT_DISTINCT` 等の近似関数を検討
+- 繰り返し実行する重いクエリはないか？ → マテリアライズドビューを検討
+
+### 10原則
+
+#### 1. `SELECT *` を避け、必要な列のみを SELECT
+
+BigQueryはカラムナフォーマット（Capacitor）でデータを格納しているため、不要な列を含めるとその分だけスキャン量とコストが増加する。
+
+```sql
+-- ❌ 全列スキャンされる
+SELECT * FROM `テーブル`;
+
+-- ✅ 必要な列だけ
+SELECT id, user_id, amount FROM `テーブル`;
+```
+
+---
+
+#### 2. `WHERE` 句でパーティションカラムを必ず指定
+
+パーティション列に対するフィルタがないと、全パーティションがスキャンされる。`require_partition_filter = true` を設定しているテーブルではエラーになる。
+
+```sql
+-- ❌ 全パーティションスキャン
+SELECT * FROM `パーティションテーブル`;
+
+-- ✅ パーティション列でフィルタ
+SELECT * FROM `パーティションテーブル`
+WHERE created_at = '2026-01-01';
+```
+
+---
+
+#### 3. `LIMIT` はスキャン量を削減しない点に注意
+
+`LIMIT` は返す行数を制限するだけで、スキャン量はフルのまま。探索的分析でもパーティション列フィルタで絞ること。
+
+```sql
+-- ❌ フルスキャンされる（LIMITはスキャン後にフィルタ）
+SELECT * FROM `テーブル` LIMIT 100;
+
+-- ✅ パーティション列で絞ってからLIMIT
+SELECT * FROM `テーブル`
+WHERE created_at = '2026-01-01'
+LIMIT 100;
+```
+
+---
+
+#### 4. `JOIN` の順序：大テーブルを左、小テーブルを右
+
+BigQueryはJOIN時に**右テーブルを全スロットにブロードキャスト（全量コピー）する**。右テーブルが大きいと全スロットへのコピーコストが膨れ上がるため、小テーブルを右に置くのが鉄則。
+
+```
+左テーブル（大）: 各スロットに分散して配置
+右テーブル（小）: 全スロットに全量コピー（ブロードキャスト）
+        ↓
+各スロットが自分の担当分だけ独立してJOINを完結できる
+```
+
+```sql
+-- ✅ 大テーブルを左、小テーブルを右
+SELECT *
+FROM `大きいテーブル` AS big
+JOIN `小さいテーブル` AS small
+ON big.id = small.id;
+
+-- ❌ 右に大テーブルを置くと全スロットへのコピーコストが膨れ上がる
+SELECT *
+FROM `小さいテーブル` AS small
+JOIN `大きいテーブル` AS big
+ON small.id = big.id;
+```
+
+> **補足**：BigQueryのクエリオプティマイザが自動的にJOIN順序を最適化するケースも増えているが、複雑なクエリや多段JOINでは期待通りに最適化されないこともあるため、明示的に意識することが望ましい。
+
+---
+
+#### 5. CTE を使ってサブクエリのネストを最小化
+
+`WITH` 句でクエリに名前をつけて整理できる。**可読性向上が主目的**で、複雑なネストを解消して保守しやすくなる。
+
+```sql
+-- ✅ CTEで整理
+WITH 売上集計 AS (
+  SELECT user_id, SUM(amount) AS total_amount
+  FROM `sales`
+  WHERE created_at >= '2026-01-01'
+  GROUP BY user_id
+)
+SELECT *
+FROM 売上集計
+WHERE total_amount > 10000;
+```
+
+> ⚠️ **注意**：同一CTEを複数箇所で参照すると**毎回再計算される**。
+> コストの高い処理を複数回参照する場合は、テンポラリテーブルまたはマテリアライズドビューに結果を保存してから使うこと。
+
+```sql
+-- ❌ 重い集計CTEを2回参照すると2回計算される
+WITH 重い集計 AS (
+  SELECT user_id, SUM(amount) AS total FROM `sales` GROUP BY user_id
+)
+SELECT * FROM 重い集計
+JOIN 重い集計 AS s2 ON ...;  -- ← 同じ処理が再度走る
+
+-- ✅ テンポラリテーブルに保存して再利用
+CREATE TEMP TABLE 重い集計 AS (
+  SELECT user_id, SUM(amount) AS total FROM `sales` GROUP BY user_id
+);
+SELECT * FROM 重い集計 JOIN 重い集計 AS s2 ON ...;
+```
+
+---
+
+#### 6. 近似集計関数の活用（高速かつ低コスト）
+
+厳密な正確性が不要な場合は近似集計関数を使うと、大幅にコストと処理時間を削減できる。
+
+| 通常関数 | 近似関数 | 用途 |
+|---|---|---|
+| `COUNT(DISTINCT col)` | `APPROX_COUNT_DISTINCT(col)` | ユニーク数のカウント |
+| `QUANTILES` | `APPROX_QUANTILES(col, n)` | 分位数の計算 |
+| `TOP` | `APPROX_TOP_COUNT(col, n)` | 上位N件 |
+
+```sql
+-- ❌ 正確だが重い
+SELECT COUNT(DISTINCT user_id) FROM `events`;
+
+-- ✅ 約1%の誤差で高速・低コスト
+SELECT APPROX_COUNT_DISTINCT(user_id) FROM `events`;
+```
+
+---
+
+#### 7. マテリアライズドビューで繰り返し実行クエリを最適化
+
+頻繁に実行される集計クエリはマテリアライズドビューとして定義することで、計算済み結果を再利用できる。ベーステーブルの変更に合わせて自動リフレッシュされる。
+
+```sql
+CREATE MATERIALIZED VIEW `プロジェクト.データセット.日次売上集計`
+AS
+SELECT
+  DATE(created_at) AS date,
+  SUM(amount)      AS total_amount,
+  COUNT(*)         AS order_count
+FROM `sales`
+GROUP BY DATE(created_at);
+```
+
+> **向いているケース**：ダッシュボード用クエリ、毎日何百回も叩かれる集計クエリ。
+> **向いていないケース**：たまにしか実行しないクエリ（リフレッシュコストが無駄になる）。
+
+---
+
+#### 8. BI Engine でインメモリキャッシュを活用
+
+BI Engine はBigQueryのインメモリアクセラレータ。Looker StudioなどのBIツールからの繰り返しクエリをキャッシュして高速化できる。
+
+- 容量単位（GB）で予約して使う
+- 同じクエリを繰り返すダッシュボード用途に特に有効
+- BigQueryのスロット課金とは別の料金体系
+
+---
+
+#### 9. INFORMATION_SCHEMA でクエリパフォーマンスを監視
+
+過去のクエリ実行履歴をSQLで分析して、コストの高いクエリやスロット消費のボトルネックを特定できる。
+
+```sql
+-- 過去7日間でスキャン量が多いクエリTOP10
+SELECT
+  query,
+  total_bytes_processed,
+  total_slot_ms,
+  creation_time
+FROM `プロジェクト.region-asia-northeast1.INFORMATION_SCHEMA.JOBS`
+WHERE creation_time >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+  AND job_type = 'QUERY'
+ORDER BY total_bytes_processed DESC
+LIMIT 10;
+```
+
+---
+
+#### 10. Partition/Cluster Recommender でテーブル設計の改善提案を受ける
+
+BigQueryが過去最大30日のワークロード実行データを分析し、パーティション・クラスタリングの設定改善を推奨してくれる。
+
+確認場所：
+- Google Cloud コンソール：**BigQuery > Recommendations 画面**
+- `gcloud` コマンド
+- Recommender API
+
+> **補足**：推奨が表示される条件（閾値あり）。
+> - Partition推奨：テーブルが100GB以上
+> - Cluster推奨：テーブルが10GB以上
+> - 過去30日間に読まれているテーブルが対象
