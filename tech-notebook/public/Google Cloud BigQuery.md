@@ -7,6 +7,9 @@ tags:
   - Google_Cloud
   - BigQuery
 ---
+## リンク
+- [bigquery-antipattern-recognition | GitHub](https://github.com/GoogleCloudPlatform/bigquery-antipattern-recognition)
+- 
 ## 主要な公式ドキュメント一覧
 
 | トピック | 公式ページ |
